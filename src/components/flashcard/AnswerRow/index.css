@@ -1,0 +1,8 @@
+.answer-row-container {
+  display: flex;
+  justify-content: center;
+}
+
+.answer-text-field {
+  font-size: '4rem';
+}
