@@ -1,9 +1,9 @@
 import './index.css';
 
-export default function Fact({num1, num2}) {
+export default function Fact({ nums }) {
   return (
     <div className="fact-container">
-      <p className="fact-text">{num1} + {num2}</p>
+      <p className="fact-text">{nums[0]} + {nums[1]}</p>
     </div>
   );
 }

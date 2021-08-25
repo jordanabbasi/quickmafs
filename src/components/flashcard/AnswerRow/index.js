@@ -1,15 +1,7 @@
-import { useState } from 'react';
 import './index.css';
 import { TextField, Button } from '@material-ui/core';
 
-export default function AnswerRow({ submitAnswer }) {
-  const [answer, setAnswer] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    submitAnswer(Number(answer));
-    setAnswer('');
-  }
+export default function AnswerRow({ handleSubmit, answer, setAnswer }) {
 
   return (
     <div className="answer-row-container">

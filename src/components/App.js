@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import Header from './header';
-import Flashcard from './flashcard';
+import Header from './Header';
+import Flashcard from './Flashcard';
 import Streak from './Streak';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <Header />
       <Streak streak={streak}/>
-      <Flashcard setStreak={setStreak}/>
+      <Flashcard streak={streak} setStreak={setStreak}/>
     </div>
   );
 }

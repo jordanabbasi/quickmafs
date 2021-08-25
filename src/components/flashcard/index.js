@@ -1,26 +1,41 @@
+import { useState } from 'react';
 import './index.css';
-import Fact from './fact';
+import Fact from './Fact';
 import AnswerRow from './AnswerRow';
+import EmojiContainer from './EmojiContainer';
 import { Paper } from '@material-ui/core';
-import { getTwoRandomNonzeroDigits } from '../../utils';
+import { getTwoRandomNonzeroDigits, isCorrectSum } from '../../utils';
 
-export default function Flashcard({ setStreak }) {
-  const [num1, num2] = getTwoRandomNonzeroDigits();
+export default function Flashcard({ streak, setStreak }) {
+  const [answer, setAnswer] = useState('');
+  const [paused, setPaused] = useState('');
+  const [nums, setNums] = useState(getTwoRandomNonzeroDigits());
 
-  const submitAnswer = (answer) => {
-    if (num1 + num2 === answer) {
-      console.log("correct!");
-      setStreak(streak => streak + 1)
-    } else {
-      console.log("incorrect!");
-      setStreak(0);
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const correct = isCorrectSum(nums, Number(answer));
+    const statusString = correct ? 'correct' : 'incorrect';
+    setStreak(streak => {
+      return correct ? streak + 1 : 0;
+    })
+    setPaused(statusString);
+
+    const pauseTime = correct ? 800 : 1200;
+    setTimeout(getNextFact, pauseTime);
   }
+
+  const getNextFact = () => {
+    setPaused('');
+    setAnswer('');
+    setNums(getTwoRandomNonzeroDigits);
+  }
+
   return (
     <div className="flashcard-container">
       <Paper className="flashcard" elevation={5}>
-        <Fact num1={num1} num2={num2} />
-        <AnswerRow submitAnswer={submitAnswer} />
+        <Fact nums={nums} />
+        <AnswerRow answer={answer} setAnswer={setAnswer} handleSubmit={handleSubmit} />
+        <EmojiContainer show={!!paused} streak={streak} />
       </Paper>
     </div>
   );
