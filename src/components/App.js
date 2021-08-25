@@ -7,12 +7,13 @@ import Streak from './Streak';
 function App() {
 
   const [streak, setStreak] = useState(0);
+  const [muted, setMuted] = useState(false);
 
   return (
     <div className="App">
       <Header />
-      <Streak streak={streak}/>
-      <Flashcard streak={streak} setStreak={setStreak}/>
+      <Streak streak={streak} muted={muted} setMuted={setMuted} />
+      <Flashcard streak={streak} setStreak={setStreak} muted={muted} />
     </div>
   );
 }

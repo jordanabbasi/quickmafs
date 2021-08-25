@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import UIfx from 'uifx';
+import correctAudio from '../../sounds/snap.wav';
+import incorrectAudio from '../../sounds/buzzer.wav';
 import './index.css';
 import Fact from './Fact';
 import AnswerRow from './AnswerRow';
@@ -6,10 +9,15 @@ import EmojiContainer from './EmojiContainer';
 import { Paper } from '@material-ui/core';
 import { getTwoRandomNonzeroDigits, isCorrectSum } from '../../utils';
 
-export default function Flashcard({ streak, setStreak }) {
+export default function Flashcard({ streak, setStreak, muted }) {
   const [answer, setAnswer] = useState('');
   const [paused, setPaused] = useState('');
   const [nums, setNums] = useState(getTwoRandomNonzeroDigits());
+
+  const sounds = {
+    correct: new UIfx(correctAudio),
+    incorrect: new UIfx(incorrectAudio),
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +27,9 @@ export default function Flashcard({ streak, setStreak }) {
       return correct ? streak + 1 : 0;
     })
     setPaused(statusString);
+    if (!muted) {
+      sounds[statusString].play();
+    }
 
     const pauseTime = correct ? 800 : 1200;
     setTimeout(getNextFact, pauseTime);
