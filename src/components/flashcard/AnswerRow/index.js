@@ -13,7 +13,7 @@ export default function AnswerRow({ handleSubmit, answer, setAnswer }) {
           value={answer}
           className="answer-text-field"
         />
-        <Button variant="contained">Submit</Button>
+        <Button type="submit" variant="contained">Submit</Button>
       </form>
     </div>
   );

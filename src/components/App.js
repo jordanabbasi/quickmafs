@@ -8,6 +8,7 @@ function App() {
 
   const [streak, setStreak] = useState(0);
   const [muted, setMuted] = useState(false);
+  const [user, setUser] = useState(null);
 
   return (
     <div className="App">
